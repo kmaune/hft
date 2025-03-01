@@ -21,10 +21,10 @@ private:
   std::array<PriceLevel*, MAX_PRICE_LEVELS> sell_levels_;
   size_t buy_level_count_ = 0;
   size_t sell_level_count_ = 0;
-  uint64_t last_trade_price;
+  uint64_t last_trade_price_;
   uint32_t last_trade_quantity_ = 0;
-  std::shared_mutex mutex_; // Read-write lock for thread safety
-  std::unordered_map<uint64_t, Order*> order_map; //For fast order lookup by id
+  mutable std::shared_mutex mutex_; // Read-write lock for thread safety
+  std::unordered_map<uint64_t, Order*> order_map_; //For fast order lookup by id
   OrderPool& order_pool_;
 
   // Internal methods
