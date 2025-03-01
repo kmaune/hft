@@ -15,7 +15,7 @@ private:
   size_t order_count_ = 0;
   std::atomic<uint64_t> total_quantity_{0};
   uint64_t price_;
-  std::shared_mutex mutex_; //Read-write lock for thread safety
+  mutable std::shared_mutex mutex_; //Read-write lock for thread safety
 
 public:
   explicit PriceLevel(uint64_t price);
