@@ -168,7 +168,7 @@ bool OrderBook::cancel_order(uint64_t order_id) {
 
   if (level->remove_order(order_id)) {
     // If price level is now empty, remove it
-    if (level->order_count()) {
+    if (level->order_count() == 0) {
       remove_price_level(order->side, order->price);
     }
 

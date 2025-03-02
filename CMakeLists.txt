@@ -47,10 +47,11 @@ FetchContent_MakeAvailable(googletest)
 # Add a test executable
 set(TEST_SOURCES
     test/test_order_book.cpp
+    test/simple_tests.cpp
 )
 
-# Create a test executable
-add_executable(HFTOrderBookTests ${TEST_SOURCES} ${SOURCES} ${HEADERS})
+# Create a test executable (exclude main.cpp)
+add_executable(HFTOrderBookTests ${TEST_SOURCES} order_book_manager.cpp order_book.cpp order_pool.cpp price_level.cpp ${HEADERS})
 
 # Link the test executable with Google Test
 target_link_libraries(HFTOrderBookTests PRIVATE gtest_main)
