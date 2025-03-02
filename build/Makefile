@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/kmaune/Desktop/coding/interview/hft/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/local/Cellar/cmake/3.30.2/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -84,6 +94,51 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/local/Cellar/cmake/3.30.2/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/local/Cellar/cmake/3.30.2/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/local/Cellar/cmake/3.30.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/local/Cellar/cmake/3.30.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/local/Cellar/cmake/3.30.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/local/Cellar/cmake/3.30.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -129,12 +184,78 @@ HFTOrderBook/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/build
 .PHONY : HFTOrderBook/fast
 
+#=============================================================================
+# Target rules for targets named HFTOrderBookTests
+
+# Build rule for target.
+HFTOrderBookTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 HFTOrderBookTests
+.PHONY : HFTOrderBookTests
+
+# fast build rule for target.
+HFTOrderBookTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/build
+.PHONY : HFTOrderBookTests/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -143,6 +264,7 @@ main.i: main.cpp.i
 # target to preprocess a source file
 main.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -151,6 +273,7 @@ main.s: main.cpp.s
 # target to generate assembly for a file
 main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 order_book.o: order_book.cpp.o
@@ -159,6 +282,7 @@ order_book.o: order_book.cpp.o
 # target to build an object file
 order_book.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_book.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_book.cpp.o
 .PHONY : order_book.cpp.o
 
 order_book.i: order_book.cpp.i
@@ -167,6 +291,7 @@ order_book.i: order_book.cpp.i
 # target to preprocess a source file
 order_book.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_book.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_book.cpp.i
 .PHONY : order_book.cpp.i
 
 order_book.s: order_book.cpp.s
@@ -175,6 +300,7 @@ order_book.s: order_book.cpp.s
 # target to generate assembly for a file
 order_book.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_book.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_book.cpp.s
 .PHONY : order_book.cpp.s
 
 order_book_manager.o: order_book_manager.cpp.o
@@ -183,6 +309,7 @@ order_book_manager.o: order_book_manager.cpp.o
 # target to build an object file
 order_book_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_book_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_book_manager.cpp.o
 .PHONY : order_book_manager.cpp.o
 
 order_book_manager.i: order_book_manager.cpp.i
@@ -191,6 +318,7 @@ order_book_manager.i: order_book_manager.cpp.i
 # target to preprocess a source file
 order_book_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_book_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_book_manager.cpp.i
 .PHONY : order_book_manager.cpp.i
 
 order_book_manager.s: order_book_manager.cpp.s
@@ -199,6 +327,7 @@ order_book_manager.s: order_book_manager.cpp.s
 # target to generate assembly for a file
 order_book_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_book_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_book_manager.cpp.s
 .PHONY : order_book_manager.cpp.s
 
 order_pool.o: order_pool.cpp.o
@@ -207,6 +336,7 @@ order_pool.o: order_pool.cpp.o
 # target to build an object file
 order_pool.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_pool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_pool.cpp.o
 .PHONY : order_pool.cpp.o
 
 order_pool.i: order_pool.cpp.i
@@ -215,6 +345,7 @@ order_pool.i: order_pool.cpp.i
 # target to preprocess a source file
 order_pool.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_pool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_pool.cpp.i
 .PHONY : order_pool.cpp.i
 
 order_pool.s: order_pool.cpp.s
@@ -223,6 +354,7 @@ order_pool.s: order_pool.cpp.s
 # target to generate assembly for a file
 order_pool.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/order_pool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/order_pool.cpp.s
 .PHONY : order_pool.cpp.s
 
 price_level.o: price_level.cpp.o
@@ -231,6 +363,7 @@ price_level.o: price_level.cpp.o
 # target to build an object file
 price_level.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/price_level.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/price_level.cpp.o
 .PHONY : price_level.cpp.o
 
 price_level.i: price_level.cpp.i
@@ -239,6 +372,7 @@ price_level.i: price_level.cpp.i
 # target to preprocess a source file
 price_level.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/price_level.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/price_level.cpp.i
 .PHONY : price_level.cpp.i
 
 price_level.s: price_level.cpp.s
@@ -247,7 +381,32 @@ price_level.s: price_level.cpp.s
 # target to generate assembly for a file
 price_level.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBook.dir/build.make CMakeFiles/HFTOrderBook.dir/price_level.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/price_level.cpp.s
 .PHONY : price_level.cpp.s
+
+test/test_order_book.o: test/test_order_book.cpp.o
+.PHONY : test/test_order_book.o
+
+# target to build an object file
+test/test_order_book.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/test/test_order_book.cpp.o
+.PHONY : test/test_order_book.cpp.o
+
+test/test_order_book.i: test/test_order_book.cpp.i
+.PHONY : test/test_order_book.i
+
+# target to preprocess a source file
+test/test_order_book.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/test/test_order_book.cpp.i
+.PHONY : test/test_order_book.cpp.i
+
+test/test_order_book.s: test/test_order_book.cpp.s
+.PHONY : test/test_order_book.s
+
+# target to generate assembly for a file
+test/test_order_book.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFTOrderBookTests.dir/build.make CMakeFiles/HFTOrderBookTests.dir/test/test_order_book.cpp.s
+.PHONY : test/test_order_book.cpp.s
 
 # Help Target
 help:
@@ -256,8 +415,18 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... HFTOrderBook"
+	@echo "... HFTOrderBookTests"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -273,6 +442,9 @@ help:
 	@echo "... price_level.o"
 	@echo "... price_level.i"
 	@echo "... price_level.s"
+	@echo "... test/test_order_book.o"
+	@echo "... test/test_order_book.i"
+	@echo "... test/test_order_book.s"
 .PHONY : help
 
 
