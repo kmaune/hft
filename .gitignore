@@ -19,7 +19,13 @@ CTestTestfile.cmake
 *.swp
 
 # Ignore dependency directories (e.g., Google Test)
-/_deps/
+build/_deps/
 
 # Ignore test results
-TestResults/
+Testing/
+
+# Ignore build directories
+/build/
+/out/
+/bin/
+
