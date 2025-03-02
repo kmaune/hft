@@ -1,0 +1,25 @@
+# Ignore CMake-generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+
+# Ignore generated binaries and libraries
+*.a
+*.so
+*.dylib
+*.exe
+*.out
+*.dll
+
+# Ignore temporary files
+*.swp
+
+# Ignore dependency directories (e.g., Google Test)
+/_deps/
+
+# Ignore test results
+TestResults/

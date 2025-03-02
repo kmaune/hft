@@ -24,16 +24,46 @@ set(HEADERS
     price_level.hpp
 )
 
-# Create the executable
+# Create the main executable
 add_executable(HFTOrderBook ${SOURCES} ${HEADERS})
 
 # Include directories (if any)
 target_include_directories(HFTOrderBook PRIVATE ${CMAKE_SOURCE_DIR})
 
-# Add any necessary libraries (if any)
-# target_link_libraries(HFTOrderBook PRIVATE some_library)
-
 # Enable warnings and set optimization level
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_options(HFTOrderBook PRIVATE -Wall -Wextra -O2)
 endif()
+
+# Add Google Test as a submodule
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG release-1.12.1
+)
+FetchContent_MakeAvailable(googletest)
+
+# Add a test executable
+set(TEST_SOURCES
+    test/test_order_book.cpp
+)
+
+# Create a test executable
+add_executable(HFTOrderBookTests ${TEST_SOURCES} ${SOURCES} ${HEADERS})
+
+# Link the test executable with Google Test
+target_link_libraries(HFTOrderBookTests PRIVATE gtest_main)
+
+# Include directories for tests
+target_include_directories(HFTOrderBookTests PRIVATE ${CMAKE_SOURCE_DIR})
+
+# Enable CTest
+enable_testing()
+
+# Add the test executable to CTest
+add_test(NAME HFTOrderBookTests COMMAND HFTOrderBookTests)
+
+# Add the test executable to CTest
+include(GoogleTest)
+gtest_discover_tests(HFTOrderBookTests)
