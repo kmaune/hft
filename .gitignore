@@ -31,3 +31,5 @@ Testing/
 /out/
 /bin/
 
+.aider*
+/.cache/
