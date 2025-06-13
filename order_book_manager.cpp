@@ -38,7 +38,7 @@ bool OrderBookManager::process_order(const std::string &symbol, uint64_t id,
   case OrderType::Cancel:
     return book->cancel_order(id);
 
-  defauilt:
+  default:
     return false;
   }
 }
